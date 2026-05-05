@@ -3,14 +3,22 @@ import java.util.*;
 
 public class DailyPlanner{
     static Scanner sc=new Scanner(System.in);
+
+    static double sugidamaWage=1200;
+    static double shabuYouWage=1172;
     public static void main(String[] args) {
+
+        showTodayShift();
+
         while (true) { 
             System.out.println("\n===Daily Planner===");
             System.out.println("1. Add Job");
             System.out.println("2. Add Expense");
             System.out.println("3. Add Workout");
             System.out.println("4. View All Data");
-            System.out.println("5. Exit");
+            System.out.println("5. Add Shift");
+            System.out.println("6. Show Today's Shift");
+            System.out.println("7. Exit");
 
             System.out.println("Choose: ");
             int choice = sc.nextInt();
@@ -29,6 +37,12 @@ public class DailyPlanner{
                 viewData();
             }
             else if(choice==5){
+                addShift();
+            }
+            else if(choice==6){
+                showTodayShift();
+            }
+            else if(choice==7){
                 System.out.println("GoodBye!");
                 break;
             }
@@ -119,6 +133,65 @@ public class DailyPlanner{
             }
             
         }
+        static void addShift() {
+            try {
+                System.out.print("Workplace (Sugidama/ShabuYou: ");
+                String workplace = sc.nextLine();
 
+                System.out.print("Date (YYYY-MM-DD): ");
+                String date=sc.nextLine();
+
+                System.out.print("Planned End (HH:MM): ");
+                String pStart=sc.nextLine();
+
+                System.out.print("Planned End(HH:MM): ");
+                String pEnd=sc.nextLine();
+
+                System.out.print("Actual Start(HH:MM): ");
+                String aStart= sc.nextLine();
+
+                System.out.print("Actual End (HH:MM): ");
+                String aEnd=sc.nextLine();
+
+                FileWriter fw = new FileWriter("shifts.txt",true);
+                fw.write(workplace + "," + date + "," + pStart + "," + pEnd + "," + aStart + "," + aEnd + "\n");
+                fw.close();
+
+                System.out.println("Shift Saved!");
+            } catch (Exception e){
+                System.out.println("Error saving shift.");
+            }
+        }
+
+        static void showTodayShift(){
+            try {
+                File file= new File("shifts.txt");
+                if(!file.exists()) return;
+
+                Scanner reader = new Scanner(file);
+                String today = java.time.LocalDate.now().toString();
+
+                boolean found = false;
+
+                while(reader.hasNextLine()){
+                    String line = reader.nextLine();
+                    String[] data= line.split(",");
+                    
+                    if (data[1].equals(today)){
+                        if(!found){
+                            System.out.println("\n ⚠️ Today's Shift");
+                            found = true;
+                        }
+                        System.out.println(data[0] + " | " + data[2] + " - " + data[3]);
+
+                    }
+                }
+
+                reader.close();
+            } catch (Exception e) {
+                System.out.println("Error reading shifts.");
+            }
+        }
+    
     }
 

@@ -1,3 +1,39 @@
+# Daily Planner Java App
+
+A simple console-based Daily Planner built using Java.
+
+## Features
+- Add part-time job schedule
+- Track earnings
+- Record expenses
+- Log workouts
+
+## How to Run
+
+1. Compile:
+   javac DailyPlanner.java
+
+2. Run:
+   java DailyPlanner
+
+OR
+
+Run using JAR:
+   java -jar DailyPlanner.jar
+
+## Files
+- DailyPlanner.java → Main program
+- jobs.txt → Job records
+- expenses.txt → Expenses
+- workouts.txt → Workout logs
+
+## Future Improvements
+- GUI version
+- Monthly summary
+- Web version
+
+## Author
+Abbot Stiring
 # Daily Planner (Java)
 
 A simple Java-based daily planner application to track income, expenses, and workouts.
